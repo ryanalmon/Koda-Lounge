@@ -1,22 +1,22 @@
 /* ============================================================
    KODA LOUNGE — style.css
-   Dark luxury aesthetic inspired by Dukes Bar & Connaught Bar
+   Navy & white luxury aesthetic inspired by Dukes Bar, London
    ============================================================ */
 
 /* ---- Custom Properties ---- */
 :root {
-  --bg:           #090908;
-  --bg-2:         #0f0f0e;
-  --bg-3:         #161510;
+  --bg:           #0b1d35;
+  --bg-2:         #0e2240;
+  --bg-3:         #08162a;
   --gold:         #c9a84c;
   --gold-light:   #dfc172;
-  --gold-dim:     rgba(201, 168, 76, 0.18);
-  --gold-faint:   rgba(201, 168, 76, 0.07);
-  --cream:        #f0ead8;
-  --text:         #cfc8b8;
-  --text-muted:   #7a7060;
-  --border:       rgba(201, 168, 76, 0.2);
-  --border-faint: rgba(201, 168, 76, 0.08);
+  --gold-dim:     rgba(201, 168, 76, 0.22);
+  --gold-faint:   rgba(201, 168, 76, 0.08);
+  --cream:        #f7f4ee;
+  --text:         #c8d8ed;
+  --text-muted:   #6888aa;
+  --border:       rgba(201, 168, 76, 0.25);
+  --border-faint: rgba(201, 168, 76, 0.1);
 
   --serif:  'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sc:     'Cormorant SC', Georgia, serif;
@@ -110,7 +110,7 @@ em { font-style: italic; }
 }
 
 .nav.nav--scrolled {
-  background: rgba(9, 9, 8, 0.96);
+  background: rgba(8, 22, 42, 0.97);
   border-bottom-color: var(--border-faint);
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
@@ -222,7 +222,7 @@ em { font-style: italic; }
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(9, 9, 8, 0.98);
+  background: rgba(8, 22, 42, 0.99);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,7 +277,7 @@ em { font-style: italic; }
   position: relative;
   height: 100vh;
   min-height: 640px;
-  background: radial-gradient(ellipse 90% 70% at 50% 45%, #1c180e 0%, #0c0b08 55%, var(--bg) 100%);
+  background: radial-gradient(ellipse 90% 70% at 50% 45%, #1a3464 0%, #0e2240 45%, var(--bg) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
