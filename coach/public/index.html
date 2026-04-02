@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murphy-Wooden ETA Coach</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2a;
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --accent: #c4a35a;
+      --accent-dim: #8b7340;
+      --user-bg: #1a1a2e;
+      --ai-bg: #111118;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    header .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .quick-btn {
+      background: var(--border);
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: var(--accent-dim);
+      color: var(--bg);
+    }
+
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .message {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px 20px;
+      border-radius: 12px;
+      line-height: 1.6;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .message.user {
+      background: var(--user-bg);
+      border: 1px solid var(--border);
+      align-self: flex-end;
+    }
+
+    .message.assistant {
+      background: var(--ai-bg);
+      border: 1px solid var(--border);
+    }
+
+    .message.assistant strong, .message.assistant b {
+      color: var(--accent);
+    }
+
+    .message .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    #input-area {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      flex-shrink: 0;
+    }
+
+    #input-area form {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+    }
+
+    #input-area textarea {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      min-height: 48px;
+      max-height: 160px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #input-area textarea:focus {
+      border-color: var(--accent-dim);
+    }
+
+    #input-area button[type="submit"] {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    #input-area button[type="submit"]:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    #input-area button[type="submit"]:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    .welcome {
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .welcome h2 {
+      color: var(--accent);
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    #chat::-webkit-scrollbar { width: 6px; }
+    #chat::-webkit-scrollbar-track { background: transparent; }
+    #chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    @media (max-width: 640px) {
+      .quick-actions { display: none; }
+      header h1 { font-size: 15px; }
+      .message { font-size: 13px; padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>MURPHY-WOODEN ETA COACH</h1>
+      <div class="subtitle">Pattern recognition training for Ryan's ETA search</div>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-btn" onclick="send('Quiz me')">Quiz Me</button>
+      <button class="quick-btn" onclick="send('Generate scenario')">Scenario</button>
+      <button class="quick-btn" onclick="send('Walkthrough returns on a $2M SDE HVAC business at 4.5x')">Returns Calc</button>
+      <button class="quick-btn" onclick="resetChat()">Reset</button>
+    </div>
+  </header>
+
+  <div id="chat">
+    <div class="welcome">
+      <h2>Ready for the next play.</h2>
+      <p>Tom Murphy's capital allocation discipline meets John Wooden's Pyramid of Success.</p>
+      <p>Try: <strong>Quiz me</strong> · <strong>Generate scenario [topic]</strong> · <strong>Analyze this listing: [paste]</strong> · <strong>Walkthrough returns on [deal]</strong></p>
+    </div>
+  </div>
+
+  <div id="input-area">
+    <form id="form">
+      <textarea id="input" placeholder="Ask your coach anything... (Enter to send, Shift+Enter for newline)" rows="1"></textarea>
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('input');
+    const form = document.getElementById('form');
+    const sendBtn = document.getElementById('sendBtn');
+    let streaming = false;
+
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if (!msg || streaming) return;
+      send(msg);
+    });
+
+    function send(msg) {
+      if (streaming) return;
+
+      // Remove welcome
+      const welcome = chat.querySelector('.welcome');
+      if (welcome) welcome.remove();
+
+      // User message
+      appendMessage('user', msg);
+      input.value = '';
+      input.style.height = 'auto';
+
+      // AI message placeholder
+      const aiMsg = appendMessage('assistant', '');
+      streaming = true;
+      sendBtn.disabled = true;
+
+      const contentEl = aiMsg.querySelector('.content');
+
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg }),
+      }).then(res => {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        function read() {
+          reader.read().then(({ done, value }) => {
+            if (done) {
+              streaming = false;
+              sendBtn.disabled = false;
+              formatMarkdown(contentEl);
+              return;
+            }
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop();
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const data = line.slice(6);
+                if (data === '[DONE]') continue;
+                try {
+                  const parsed = JSON.parse(data);
+                  if (parsed.text) {
+                    contentEl.textContent += parsed.text;
+                    chat.scrollTop = chat.scrollHeight;
+                  }
+                  if (parsed.error) {
+                    contentEl.textContent += '\n[Error: ' + parsed.error + ']';
+                  }
+                } catch {}
+              }
+            }
+            read();
+          });
+        }
+        read();
+      }).catch(err => {
+        contentEl.textContent = '[Connection error: ' + err.message + ']';
+        streaming = false;
+        sendBtn.disabled = false;
+      });
+    }
+
+    function appendMessage(role, text) {
+      const div = document.createElement('div');
+      div.className = 'message ' + role;
+      div.innerHTML = `<span class="label">${role === 'user' ? 'You' : 'Coach'}</span><span class="content"></span>`;
+      div.querySelector('.content').textContent = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+      return div;
+    }
+
+    function formatMarkdown(el) {
+      let html = el.textContent;
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\|(.+)\|/g, (match) => {
+        return match; // keep tables as-is for now
+      });
+      el.innerHTML = html;
+    }
+
+    function resetChat() {
+      fetch('/api/reset', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      chat.innerHTML = `<div class="welcome">
+        <h2>Ready for the next play.</h2>
+        <p>Tom Murphy's capital allocation discipline meets John Wooden's Pyramid of Success.</p>
+        <p>Try: <strong>Quiz me</strong> · <strong>Generate scenario [topic]</strong> · <strong>Analyze this listing: [paste]</strong> · <strong>Walkthrough returns on [deal]</strong></p>
+      </div>`;
+    }
+  </script>
+</body>
+</html>
