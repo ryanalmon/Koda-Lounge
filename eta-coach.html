@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murphy-Wooden ETA Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="eta-coach.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__header">
+        <h1 class="sidebar__title">ETA Coach</h1>
+        <p class="sidebar__subtitle">Murphy &middot; Wooden</p>
+        <button class="sidebar__close" id="sidebarClose" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="sidebar__progress">
+        <div class="sidebar__progress-bar">
+          <div class="sidebar__progress-fill" id="globalProgress"></div>
+        </div>
+        <p class="sidebar__progress-label"><span id="globalPct">0</span>% Mastered</p>
+      </div>
+      <nav class="sidebar__nav" id="topicNav"></nav>
+      <div class="sidebar__footer">
+        <button class="btn btn--outline btn--sm" id="resetBtn">Reset All Progress</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main" id="main">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Dashboard (home) -->
+      <section class="view" id="dashboardView">
+        <div class="dashboard">
+          <div class="dashboard__hero">
+            <h2 class="dashboard__greeting">Murphy-Wooden ETA Coach for Ryan</h2>
+            <p class="dashboard__sub">Ready for the next play.</p>
+          </div>
+          <div class="dashboard__stats">
+            <div class="stat-card">
+              <p class="stat-card__value" id="statMastered">0</p>
+              <p class="stat-card__label">Topics Mastered</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__value" id="statInProgress">0</p>
+              <p class="stat-card__label">In Progress</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__value" id="statRemaining">0</p>
+              <p class="stat-card__label">Not Started</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__value" id="statAccuracy">--</p>
+              <p class="stat-card__label">Quiz Accuracy</p>
+            </div>
+          </div>
+          <div class="dashboard__actions">
+            <button class="btn btn--primary btn--lg" id="weakestTopicBtn">Study Weakest Topic</button>
+            <button class="btn btn--outline btn--lg" id="randomQuizBtn">Quick Random Quiz</button>
+          </div>
+          <div class="dashboard__weak" id="weakList"></div>
+        </div>
+      </section>
+
+      <!-- Lesson View -->
+      <section class="view hidden" id="lessonView">
+        <div class="lesson">
+          <div class="lesson__breadcrumb">
+            <button class="btn-link" id="backToDash">&larr; Dashboard</button>
+            <span class="lesson__category" id="lessonCategory"></span>
+          </div>
+          <h2 class="lesson__title" id="lessonTitle"></h2>
+          <div class="lesson__mastery">
+            <div class="mastery-badge" id="masteryBadge">Not Started</div>
+          </div>
+          <div class="lesson__content" id="lessonContent"></div>
+          <div class="lesson__scenario" id="lessonScenario"></div>
+          <div class="lesson__actions">
+            <button class="btn btn--primary" id="startQuizBtn">Take Quiz (3-5 Questions)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz View -->
+      <section class="view hidden" id="quizView">
+        <div class="quiz">
+          <div class="quiz__breadcrumb">
+            <button class="btn-link" id="backToLesson">&larr; Back to Lesson</button>
+          </div>
+          <div class="quiz__header">
+            <h2 class="quiz__title" id="quizTitle"></h2>
+            <p class="quiz__progress" id="quizProgress"></p>
+          </div>
+          <div class="quiz__question" id="quizQuestion"></div>
+          <div class="quiz__options" id="quizOptions"></div>
+          <div class="quiz__feedback hidden" id="quizFeedback"></div>
+          <div class="quiz__actions">
+            <button class="btn btn--primary hidden" id="nextQuestionBtn">Next Question</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz Results View -->
+      <section class="view hidden" id="resultsView">
+        <div class="results">
+          <h2 class="results__title" id="resultsTitle"></h2>
+          <div class="results__score">
+            <div class="results__score-circle" id="resultsCircle">
+              <span id="resultsScore">0</span><span>%</span>
+            </div>
+          </div>
+          <p class="results__message" id="resultsMessage"></p>
+          <div class="results__breakdown" id="resultsBreakdown"></div>
+          <div class="results__actions">
+            <button class="btn btn--primary" id="retakeQuizBtn">Retake Quiz</button>
+            <button class="btn btn--outline" id="nextTopicBtn">Next Weakest Topic</button>
+            <button class="btn btn--outline" id="backDashBtn">Dashboard</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="eta-coach.js"></script>
+</body>
+</html>
