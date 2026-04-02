@@ -15,344 +15,307 @@
       --muted: #71717a;
       --accent: #c4a35a;
       --accent-dim: #8b7340;
-      --user-bg: #1a1a2e;
-      --ai-bg: #111118;
+      --card-bg: #111118;
     }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
     header {
+      width: 100%;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
+      padding: 20px 24px;
+      text-align: center;
     }
 
     header h1 {
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--accent);
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
 
     header .subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
-    .quick-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .quick-btn {
-      background: var(--border);
-      border: 1px solid var(--accent-dim);
-      color: var(--accent);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .quick-btn:hover {
-      background: var(--accent-dim);
-      color: var(--bg);
-    }
-
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px;
+    main {
+      max-width: 760px;
+      width: 100%;
+      padding: 32px 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
     }
 
-    .message {
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 16px 20px;
-      border-radius: 12px;
-      line-height: 1.6;
-      font-size: 14px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    .message.user {
-      background: var(--user-bg);
-      border: 1px solid var(--border);
-      align-self: flex-end;
-    }
-
-    .message.assistant {
-      background: var(--ai-bg);
-      border: 1px solid var(--border);
-    }
-
-    .message.assistant strong, .message.assistant b {
-      color: var(--accent);
-    }
-
-    .message .label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    #input-area {
+    .step {
       background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 16px 24px;
-      flex-shrink: 0;
-    }
-
-    #input-area form {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      gap: 12px;
-    }
-
-    #input-area textarea {
-      flex: 1;
-      background: var(--bg);
       border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 13px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .step h2 {
+      display: inline;
+      font-size: 16px;
+      font-weight: 600;
       color: var(--text);
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-family: inherit;
-      resize: none;
-      min-height: 48px;
-      max-height: 160px;
-      outline: none;
-      transition: border-color 0.2s;
     }
 
-    #input-area textarea:focus {
-      border-color: var(--accent-dim);
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 1.6;
     }
 
-    #input-area button[type="submit"] {
+    .btn {
+      display: inline-block;
       background: var(--accent);
       color: var(--bg);
       border: none;
       padding: 12px 24px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: opacity 0.2s;
-      white-space: nowrap;
+      text-decoration: none;
+      margin-top: 14px;
     }
 
-    #input-area button[type="submit"]:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+    .btn:hover { opacity: 0.85; }
 
-    #input-area button[type="submit"]:hover:not(:disabled) {
-      opacity: 0.85;
-    }
-
-    .welcome {
-      text-align: center;
-      max-width: 600px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    .welcome h2 {
+    .btn.secondary {
+      background: var(--border);
       color: var(--accent);
-      font-size: 24px;
-      margin-bottom: 12px;
+      border: 1px solid var(--accent-dim);
     }
 
-    .welcome p {
-      color: var(--muted);
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10px 24px;
+      border-radius: 8px;
       font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
     }
 
-    #chat::-webkit-scrollbar { width: 6px; }
-    #chat::-webkit-scrollbar-track { background: transparent; }
-    #chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .prompt-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-card:hover {
+      border-color: var(--accent-dim);
+      background: var(--card-bg);
+    }
+
+    .quick-card h3 {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .quick-card p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .prompt-preview::-webkit-scrollbar { width: 4px; }
+    .prompt-preview::-webkit-scrollbar-track { background: transparent; }
+    .prompt-preview::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     @media (max-width: 640px) {
-      .quick-actions { display: none; }
-      header h1 { font-size: 15px; }
-      .message { font-size: 13px; padding: 12px 14px; }
+      .quick-grid { grid-template-columns: 1fr; }
+      main { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div>
-      <h1>MURPHY-WOODEN ETA COACH</h1>
-      <div class="subtitle">Pattern recognition training for Ryan's ETA search</div>
-    </div>
-    <div class="quick-actions">
-      <button class="quick-btn" onclick="send('Quiz me')">Quiz Me</button>
-      <button class="quick-btn" onclick="send('Generate scenario')">Scenario</button>
-      <button class="quick-btn" onclick="send('Walkthrough returns on a $2M SDE HVAC business at 4.5x')">Returns Calc</button>
-      <button class="quick-btn" onclick="resetChat()">Reset</button>
-    </div>
+    <h1>MURPHY-WOODEN ETA COACH</h1>
+    <div class="subtitle">Pattern recognition training for Ryan's ETA search — powered by Claude.ai (free)</div>
   </header>
 
-  <div id="chat">
-    <div class="welcome">
-      <h2>Ready for the next play.</h2>
-      <p>Tom Murphy's capital allocation discipline meets John Wooden's Pyramid of Success.</p>
-      <p>Try: <strong>Quiz me</strong> · <strong>Generate scenario [topic]</strong> · <strong>Analyze this listing: [paste]</strong> · <strong>Walkthrough returns on [deal]</strong></p>
+  <main>
+    <div class="step">
+      <span class="step-number">1</span>
+      <h2>Copy the Coach System Prompt</h2>
+      <p>This loads the full Murphy-Wooden ETA Coach persona into Claude. Paste it as your first message to start a new coaching session.</p>
+      <div class="prompt-preview" id="promptPreview"></div>
+      <button class="btn" onclick="copyPrompt()">Copy System Prompt</button>
     </div>
-  </div>
 
-  <div id="input-area">
-    <form id="form">
-      <textarea id="input" placeholder="Ask your coach anything... (Enter to send, Shift+Enter for newline)" rows="1"></textarea>
-      <button type="submit" id="sendBtn">Send</button>
-    </form>
-  </div>
+    <div class="step">
+      <span class="step-number">2</span>
+      <h2>Open Claude.ai</h2>
+      <p>Start a new conversation and paste the system prompt. Claude becomes your ETA coach instantly.</p>
+      <a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude.ai</a>
+    </div>
+
+    <div class="step">
+      <span class="step-number">3</span>
+      <h2>Use Quick Commands</h2>
+      <p>Click any command below to copy it, then paste into your Claude conversation.</p>
+      <div class="quick-grid">
+        <div class="quick-card" onclick="copyText('Quiz me')">
+          <h3>Quiz Me</h3>
+          <p>Test your Murphy return calcs, ops thinking, and Wooden principles</p>
+        </div>
+        <div class="quick-card" onclick="copyText('Generate scenario')">
+          <h3>Generate Scenario</h3>
+          <p>Get a realistic 2026 ETA situation to analyze</p>
+        </div>
+        <div class="quick-card" onclick="copyText('Walkthrough returns on a $2M SDE HVAC business at 4.5x')">
+          <h3>Returns Walkthrough</h3>
+          <p>Step-by-step owner earnings calc on a sample deal</p>
+        </div>
+        <div class="quick-card" onclick="copyText('Analyze this listing: ')">
+          <h3>Analyze a Listing</h3>
+          <p>Paste a BizBuySell listing for full Murphy-Wooden analysis</p>
+        </div>
+        <div class="quick-card" onclick="copyText('Generate scenario about post-close employee pushback after implementing AI tools')">
+          <h3>Post-Close Crisis</h3>
+          <p>Practice Wooden leadership in a tough ops situation</p>
+        </div>
+        <div class="quick-card" onclick="copyText('Generate scenario about a recession hitting 6 months after acquiring a services business')">
+          <h3>Recession Scenario</h3>
+          <p>How Murphy would handle a left-tail economic downturn</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
 
   <script>
-    const chat = document.getElementById('chat');
-    const input = document.getElementById('input');
-    const form = document.getElementById('form');
-    const sendBtn = document.getElementById('sendBtn');
-    let streaming = false;
+    const SYSTEM_PROMPT = `You are the "Murphy-Wooden ETA Coach" — an expert interactive tutor built exclusively for Ryan (San Francisco-based ETA searcher). Your sole mission is to help Ryan build unbreakable pattern-recognition skills so he can spot, evaluate, lead, and scale businesses exactly like 29-year-old Tom Murphy would, while leading people with John Wooden's integrity and process-focused philosophy.
 
-    input.addEventListener('input', () => {
-      input.style.height = 'auto';
-      input.style.height = Math.min(input.scrollHeight, 160) + 'px';
-    });
+CORE PLAYBOOKS TO TEACH (always reference explicitly):
 
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        form.dispatchEvent(new Event('submit'));
-      }
-    });
+TOM MURPHY (Capital Cities style, no media experience required):
+- Buy existing, cash-flow-positive, low-capital-intensity businesses with durable local/niche moats and predictable owner earnings.
+- Ruthless frugality, zero-based budgeting, extreme decentralization (tiny HQ, operators own P&L once budgets are locked).
+- Circle of competence + opportunistic buying (sit on cash, pounce on fear/Citrini-style dips).
+- Capital allocation obsession: owner earnings = net income + D&A – maintenance CapEx – Δ working capital. Target double-digit after-tax returns over 10+ years. Project margin expansion (e.g., from 15% → 30%+) via cost discipline + AI as efficiency tool (never the core bet).
+- Post-close ops: impose discipline, hire for brains/drive over domain expertise, roll up tuck-ins with internal cash flow.
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const msg = input.value.trim();
-      if (!msg || streaming) return;
-      send(msg);
-    });
+JOHN WOODEN (Pyramid of Success foundation):
+- Success = "doing the best you are capable of doing" — focus relentlessly on the PROCESS (effort, preparation, self-control, industriousness, intentness) and let outcomes take care of themselves.
+- Integrity as the bedrock. Lead with poise under pressure, team spirit, competitive greatness, loyalty, and cooperation. Never sacrifice people for short-term numbers — build them to be their personal best.
 
-    function send(msg) {
-      if (streaming) return;
+RESPONSE STRUCTURE (use this exact format every time):
+1. **Scenario Summary** (if generating or analyzing): 1-2 paragraph realistic ETA situation Ryan is likely to face (deal sourcing, due diligence, seller meeting, post-close crisis, AI integration, left-tail recession fear, employee pushback, etc.). Make it vivid and plausible for 2026 AI-boom environment. Media-adjacent deals are allowed.
+2. **Murphy Lens Walkthrough**: Step-by-step how Murphy would THINK and CALCULATE:
+   - Company evaluation (moat, capital intensity, cash-flow predictability).
+   - Return math (show explicit owner-earnings calc, projected 5-10 year cash flows, margin expansion assumptions, implied IRR/multiple discipline).
+   - Ops improvement plan (frugality moves, decentralization, AI leverage, roll-ups).
+3. **Wooden Leadership Lens**: How Murphy would lead the employees in this scenario — emphasizing process, "best you are capable of," integrity, poise, team spirit. Specific Wooden-inspired actions or coaching language.
+4. **Pattern Recognition Flags**: 3-5 bullet points of what to watch for in real listings (red flags, green flags, Murphy tests).
+5. **Lesson & Action Step**: One-sentence takeaway + what Ryan should do next in his search.
 
-      // Remove welcome
-      const welcome = chat.querySelector('.welcome');
-      if (welcome) welcome.remove();
+If user says "Quiz me" or "Test me":
+- Generate 3-5 multiple-choice or open-ended questions that test Murphy return calculations, ops thinking, Wooden principles in leadership, or pattern spotting.
+- After user answers, give detailed feedback with Murphy/Wooden references.
 
-      // User message
-      appendMessage('user', msg);
-      input.value = '';
-      input.style.height = 'auto';
+Command handling:
+- "Generate scenario [topic]" → create one.
+- "Analyze this listing: [paste]" → full analysis.
+- "Quiz me" or "Test understanding" → deliver quiz.
+- "Walkthrough returns on [brief deal]" → focus on calc.
+- Keep responses concise yet deep (400-700 words max). Use tables for any financial calcs.
 
-      // AI message placeholder
-      const aiMsg = appendMessage('assistant', '');
-      streaming = true;
-      sendBtn.disabled = true;
+Tone: Direct, tactical, encouraging coach — like a combination of Murphy's quiet discipline and Wooden's inspirational integrity. Always tie back to Ryan's ETA search so he can immediately apply pattern recognition when browsing BizBuySell or talking to brokers.
 
-      const contentEl = aiMsg.querySelector('.content');
+Begin every response with: "Murphy-Wooden ETA Coach for Ryan — ready for the next play."
+Continue from where you left off.`;
 
-      fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg }),
-      }).then(res => {
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
+    document.getElementById('promptPreview').textContent = SYSTEM_PROMPT.slice(0, 500) + '...';
 
-        function read() {
-          reader.read().then(({ done, value }) => {
-            if (done) {
-              streaming = false;
-              sendBtn.disabled = false;
-              formatMarkdown(contentEl);
-              return;
-            }
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop();
-
-            for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                const data = line.slice(6);
-                if (data === '[DONE]') continue;
-                try {
-                  const parsed = JSON.parse(data);
-                  if (parsed.text) {
-                    contentEl.textContent += parsed.text;
-                    chat.scrollTop = chat.scrollHeight;
-                  }
-                  if (parsed.error) {
-                    contentEl.textContent += '\n[Error: ' + parsed.error + ']';
-                  }
-                } catch {}
-              }
-            }
-            read();
-          });
-        }
-        read();
-      }).catch(err => {
-        contentEl.textContent = '[Connection error: ' + err.message + ']';
-        streaming = false;
-        sendBtn.disabled = false;
-      });
+    function copyPrompt() {
+      navigator.clipboard.writeText(SYSTEM_PROMPT).then(() => showToast('System prompt copied!'));
     }
 
-    function appendMessage(role, text) {
-      const div = document.createElement('div');
-      div.className = 'message ' + role;
-      div.innerHTML = `<span class="label">${role === 'user' ? 'You' : 'Coach'}</span><span class="content"></span>`;
-      div.querySelector('.content').textContent = text;
-      chat.appendChild(div);
-      chat.scrollTop = chat.scrollHeight;
-      return div;
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => showToast('Copied: ' + text.slice(0, 40) + (text.length > 40 ? '...' : '')));
     }
 
-    function formatMarkdown(el) {
-      let html = el.textContent;
-      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-      html = html.replace(/\|(.+)\|/g, (match) => {
-        return match; // keep tables as-is for now
-      });
-      el.innerHTML = html;
-    }
-
-    function resetChat() {
-      fetch('/api/reset', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
-      chat.innerHTML = `<div class="welcome">
-        <h2>Ready for the next play.</h2>
-        <p>Tom Murphy's capital allocation discipline meets John Wooden's Pyramid of Success.</p>
-        <p>Try: <strong>Quiz me</strong> · <strong>Generate scenario [topic]</strong> · <strong>Analyze this listing: [paste]</strong> · <strong>Walkthrough returns on [deal]</strong></p>
-      </div>`;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
     }
   </script>
 </body>
