@@ -159,6 +159,65 @@
   }
 
 
+  /* ---- Cocktail Finder ---- */
+  (function () {
+    var answers = {};
+
+    var menu = {
+      'old-fashioned':  { num: 'I',   name: 'Old Fashioned',   spirits: ['whiskey'], tastes: ['bitter', 'spirit'], desc: 'Bourbon or rye, demerara sugar, Angostura bitters, expressed orange peel — the gold standard of American cocktail craft.' },
+      'gin-martini':    { num: 'II',  name: 'Gin Martini',     spirits: ['gin'],     tastes: ['bitter', 'spirit'], desc: 'London dry gin, dry vermouth, stirred to silken perfection over diamond ice, garnished with a brined olive or lemon twist.' },
+      'espresso-martini':{ num: 'III', name: 'Espresso Martini', spirits: ['vodka'],  tastes: ['sweet'],            desc: 'Vodka, freshly pulled single-origin espresso, Kahlúa, a touch of simple syrup — the night\'s most elegant second wind.' },
+      'cosmopolitan':   { num: 'IV',  name: 'Cosmopolitan',    spirits: ['vodka'],   tastes: ['sour', 'sweet'],    desc: 'Citrus vodka, Cointreau, cranberry, fresh lime — luminous, elegant, and perfectly balanced between tart and sweet.' },
+      'margarita':      { num: 'V',   name: 'Margarita',       spirits: ['tequila'], tastes: ['sour'],             desc: 'Tequila blanco, Cointreau, freshly squeezed lime, hand-salted rim — the perfect balance of spirit, citrus, and salt.' }
+    };
+
+    var spiritLines = { whiskey: 'You appreciate depth, tradition, and the passage of time.', gin: 'Your palate leans towards botanical complexity and finesse.', vodka: 'You value versatility, clarity, and quiet refinement.', tequila: 'You embrace boldness, vibrancy, and a sense of adventure.' };
+    var tasteLines  = { sweet: 'A smooth, rounded finish suits your mood perfectly.', sour: 'The bright acidity will enliven the evening.', bitter: 'The complexity matches your discerning taste.', spirit: 'Nothing should mask the quality of what\'s in the glass.' };
+
+    function recommend(spirit, taste) {
+      var scores = {};
+      Object.keys(menu).forEach(function (k) {
+        var c = menu[k];
+        scores[k] = (c.spirits.indexOf(spirit) !== -1 ? 3 : 0) + (c.tastes.indexOf(taste) !== -1 ? 2 : 0);
+      });
+      return menu[Object.keys(scores).reduce(function (a, b) { return scores[a] >= scores[b] ? a : b; })];
+    }
+
+    function goToStep(n) {
+      document.querySelectorAll('.finder__step').forEach(function (s) { s.classList.remove('active'); });
+      var next = document.querySelector('.finder__step[data-step="' + n + '"]');
+      if (!next) return;
+      next.classList.remove('active');
+      void next.offsetWidth; // force reflow for animation replay
+      next.classList.add('active');
+    }
+
+    function showResult() {
+      var rec = recommend(answers.spirit, answers.taste);
+      document.getElementById('resultNum').textContent  = rec.num;
+      document.getElementById('resultName').textContent = rec.name;
+      document.getElementById('resultDesc').textContent = rec.desc;
+      document.getElementById('resultWhy').textContent  = (spiritLines[answers.spirit] || '') + ' ' + (tasteLines[answers.taste] || '');
+      goToStep(4);
+    }
+
+    document.querySelectorAll('.finder__opt').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var step = parseInt(opt.closest('.finder__step').getAttribute('data-step'));
+        if (step === 1) answers.spirit  = opt.getAttribute('data-value');
+        if (step === 2) answers.taste   = opt.getAttribute('data-value');
+        if (step === 3) { answers.occasion = opt.getAttribute('data-value'); showResult(); return; }
+        goToStep(step + 1);
+      });
+    });
+
+    var restartBtn = document.getElementById('finderRestart');
+    if (restartBtn) {
+      restartBtn.addEventListener('click', function () { answers = {}; goToStep(1); });
+    }
+  }());
+
+
   /* ---- Emblem animation pause on reduced motion ---- */
   const emblemSvg = document.querySelector('.visit__emblem-svg');
   if (emblemSvg && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

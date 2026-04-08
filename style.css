@@ -1381,6 +1381,178 @@ em { font-style: italic; }
 }
 
 /* ============================================================
+   COCKTAIL FINDER
+   ============================================================ */
+.finder {
+  background: var(--bg-3);
+  padding: 110px 0;
+  border-top: 1px solid var(--border-faint);
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.finder__container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.finder__header { margin-bottom: 60px; }
+
+.finder__intro {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  margin-top: 20px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+.finder__quiz { min-height: 280px; }
+
+.finder__step { display: none; }
+.finder__step.active {
+  display: block;
+  animation: finderIn 0.45s var(--ease) forwards;
+}
+
+@keyframes finderIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.finder__step-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.finder__question {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  color: var(--cream);
+  margin-bottom: 40px;
+  line-height: 1.25;
+}
+
+.finder__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.finder__opt {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.finder__opt:hover {
+  background: var(--gold-faint);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* Result card */
+.finder__result {
+  padding: 44px 40px;
+  border: 1px solid var(--border);
+  position: relative;
+  background: rgba(255,255,255,0.02);
+}
+
+.finder__result::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.finder__result-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 3.5rem;
+  color: var(--gold-dim);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.finder__result-name {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--cream);
+}
+
+.finder__result-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin: 20px auto;
+}
+
+.finder__result-desc {
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.9;
+  margin-bottom: 16px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.finder__result-why {
+  color: var(--gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  font-style: italic;
+}
+
+.finder__restart {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  cursor: pointer;
+  margin-top: 32px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.finder__restart:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@media (max-width: 520px) {
+  .finder__options { grid-template-columns: 1fr; }
+  .finder__result { padding: 32px 24px; }
+}
+
+/* ============================================================
    SELECTION COLOR
    ============================================================ */
 ::selection {

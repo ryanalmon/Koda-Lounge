@@ -25,6 +25,7 @@
         <li><a href="#about" class="nav__link">Our Story</a></li>
         <li><a href="#cocktails" class="nav__link">Cocktails</a></li>
         <li><a href="#experience" class="nav__link">The Bar</a></li>
+        <li><a href="#cocktail-finder" class="nav__link">Cocktail Finder</a></li>
         <li><a href="#visit" class="nav__link">Visit</a></li>
       </ul>
       <button class="nav__toggle" id="navToggle" aria-label="Open menu">
@@ -337,6 +338,65 @@
       <div class="quote__mark">&ldquo;</div>
       <blockquote class="quote__text">The pursuit of perfection is not a destination.<br>It is the path itself.</blockquote>
       <cite class="quote__cite">— The Koda Lounge Philosophy</cite>
+    </div>
+  </section>
+
+  <!-- Cocktail Finder -->
+  <section class="finder" id="cocktail-finder">
+    <div class="finder__container">
+      <div class="finder__header">
+        <p class="label label--light">Personalised</p>
+        <h2 class="heading heading--light">Find Your<br><em>Cocktail</em></h2>
+        <p class="finder__intro">Answer three questions and we'll craft the perfect recommendation for your evening.</p>
+      </div>
+      <div class="finder__quiz" id="finderQuiz">
+
+        <div class="finder__step active" data-step="1">
+          <p class="finder__step-label">01 / 03 &nbsp;&mdash;&nbsp; Spirit</p>
+          <h3 class="finder__question">What's your preferred base spirit?</h3>
+          <div class="finder__options">
+            <button class="finder__opt" data-value="whiskey">Whiskey / Bourbon</button>
+            <button class="finder__opt" data-value="gin">Gin</button>
+            <button class="finder__opt" data-value="vodka">Vodka</button>
+            <button class="finder__opt" data-value="tequila">Tequila</button>
+          </div>
+        </div>
+
+        <div class="finder__step" data-step="2">
+          <p class="finder__step-label">02 / 03 &nbsp;&mdash;&nbsp; Taste</p>
+          <h3 class="finder__question">How do you like your drinks?</h3>
+          <div class="finder__options">
+            <button class="finder__opt" data-value="sweet">Sweet &amp; Smooth</button>
+            <button class="finder__opt" data-value="sour">Tart &amp; Citrusy</button>
+            <button class="finder__opt" data-value="bitter">Bold &amp; Bitter</button>
+            <button class="finder__opt" data-value="spirit">Pure Spirit-Forward</button>
+          </div>
+        </div>
+
+        <div class="finder__step" data-step="3">
+          <p class="finder__step-label">03 / 03 &nbsp;&mdash;&nbsp; Occasion</p>
+          <h3 class="finder__question">What brings you in tonight?</h3>
+          <div class="finder__options">
+            <button class="finder__opt" data-value="unwind">Unwinding after work</button>
+            <button class="finder__opt" data-value="celebrate">Celebrating something special</button>
+            <button class="finder__opt" data-value="explore">Exploring something new</button>
+            <button class="finder__opt" data-value="social">A night with friends</button>
+          </div>
+        </div>
+
+        <div class="finder__step" data-step="4">
+          <p class="finder__step-label">Your Recommendation</p>
+          <div class="finder__result">
+            <div class="finder__result-num" id="resultNum"></div>
+            <h3 class="finder__result-name" id="resultName"></h3>
+            <div class="finder__result-rule"></div>
+            <p class="finder__result-desc" id="resultDesc"></p>
+            <p class="finder__result-why" id="resultWhy"></p>
+          </div>
+          <button class="finder__restart" id="finderRestart">Start Again</button>
+        </div>
+
+      </div>
     </div>
   </section>
 
